@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  flask:
+    build:
+      context: ./
+
+    container_name: 'app1-docker'
+    volumes:
+      - .:/docker
+    ports:
+      - "8080:8080"
+    command: python3 app.py
+
+
+  mysql:
+    container_name: "sql-docker"
+    volumes:
+      - ./shop_hw.sql:/docker-entrypoint-initdb.d/shop_hw.sql
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: shop
+    ports:
+      -"8082:3306"
+
+
